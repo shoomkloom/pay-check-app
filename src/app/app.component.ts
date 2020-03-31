@@ -5,7 +5,7 @@ import { User } from './models/user';
 import { ServerApiService } from './services/server-api.service';
 
 @Component({
-  selector: 'cm-app-root',
+  selector: 'pc-app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

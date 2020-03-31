@@ -1,23 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ServerApiService } from '../../services/server-api.service';
 import { AlertService } from '../../services/alert.service';
 import { AppError } from '../../app-error';
 import { Helpers } from '../helpers';
+import { User } from 'src/app/models/user';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'cm-register',
+  selector: 'pc-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  registerForm: FormGroup;
+  user: User = new User;
   loading = false;
   submitted = false;
  
   constructor(
-    private formBuilder: FormBuilder,
     private router: Router,
     private serverApi: ServerApiService,
     private alertService: AlertService,
@@ -26,42 +25,30 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.alertService.clear();    
-    this.registerForm = this.formBuilder.group({
-        name: ['', Validators.required],
-        email: ['', Validators.required && Validators.email],
-        password: ['', [Validators.required, Validators.minLength(6)]]
-    });
   }
-
-  // convenience getter for easy access to form fields
-  get f() { return this.registerForm.controls; }
 
   onSubmit() {
     this.submitted = true;
+    this.loading = true;
 
     // reset alerts on submit
     this.alertService.clear();
 
-    // stop here if form is invalid
-    if (this.registerForm.invalid) {
-        return;
-    }
-
-    this.loading = true;
-
-    this.serverApi.userRegister(this.registerForm.value)
+    //Auth the user
+    this.serverApi.userRegister(this.user)
       .subscribe(
-        data => {
+        (validUser: User) => {
           this.alertService.success('Registration successful', true);
-          this.helpers.setCurrentUser(JSON.stringify(data));
+          this.helpers.setCurrentUser(validUser);
           this.router.navigate(['/login']);
         },
         (error: AppError) => {
-          if(error.status === 404){
-            this.alertService.error('Error 404!');
+          console.log('ERROR:', error);
+          if(error.status === 400 || error.status === 401){
+            this.alertService.error('כניסה לא הצליחה, בבקשה לנסות שוב.');
           }
           else{
-            this.alertService.error('There was an unexpected error, please try again.');
+            this.alertService.error('תקלה לא מזוהה, בבקשה לנסות שוב.');
           }
           this.loading = false;
         }

@@ -7,7 +7,7 @@ import { AlertService } from 'src/app/services/alert.service';
 
 
 @Component({
-  selector: 'cm-home',
+  selector: 'pc-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })

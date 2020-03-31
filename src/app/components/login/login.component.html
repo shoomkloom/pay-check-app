@@ -1,25 +1,47 @@
-<h2>Login</h2>
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-            <div *ngIf="f.email.errors.required">Email is required</div>
-            <div *ngIf="f.email.errors.email">Not a valid email address</div>
-        </div>
+<div class="row hebrew justify-content-start">
+    <div class col-sm-12>
+        <h3 class="justify-content-end">התחברות</h3>
     </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-            <div *ngIf="f.password.errors.required">Password is required</div>
+</div>
+<form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group text-right">
+                <label for="email">כתובת אימייל:</label>
+                <input type="email" 
+                class="form-control text-left" 
+                dir="ltr"
+                id="email"
+                required
+                [(ngModel)]="user.email" name="email"
+                #email="ngModel">
+                <div [hidden]="email.valid || email.pristine"
+                    class="alert alert-danger">
+                    דרושה כתובת אימייל
+                </div>
+            </div>
+            <div class="form-group text-right">
+                <div class="form-group">
+                    <label for="password">סיסמה:</label>
+                    <input type="password" 
+                    class="form-control text-left" 
+                    dir="ltr"
+                    id="password"
+                    required
+                    [(ngModel)]="user.password" name="password"
+                    #password="ngModel">
+                    <div [hidden]="password.valid || password.pristine"
+                        class="alert alert-danger">
+                        דרושה סיסמה
+                    </div>
+                </div>
+            </div>
+                <button type="submit" class="btn btn-primary" 
+                [disabled]="!loginForm.form.valid && loading">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                כניסה
+            </button>
+            <a routerLink="/register" class="btn btn-link">הרשמה</a>
         </div>
-    </div>
-    <div class="form-group">
-        <button [disabled]="loading" class="btn btn-primary">
-            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-            Login
-        </button>
-        <a routerLink="/register" class="btn btn-link">Register</a>
     </div>
 </form>

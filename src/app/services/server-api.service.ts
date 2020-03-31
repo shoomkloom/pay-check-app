@@ -61,7 +61,7 @@ export class ServerApiService {
       .pipe(
         map((res: HttpResponse<Object>) => {
           //Store user details and jwt token in local storage to keep user logged in between page refreshes
-          this.helpers.setCurrentUser(JSON.stringify(res.body));
+          this.helpers.setCurrentUserJSON(JSON.stringify(res.body));
           this.currentUserSubject.next(res.body as User);
           this.helpers.setToken(res.headers.get('x-auth-token'));
           return res.body as User;

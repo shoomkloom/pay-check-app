@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { AlertService } from '../../services/alert.service';
 
 @Component({ 
-  selector: 'cm-alert', 
+  selector: 'pc-alert', 
   templateUrl: 'alert.component.html' 
 })
 export class AlertComponent implements OnInit, OnDestroy {

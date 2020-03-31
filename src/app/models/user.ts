@@ -6,6 +6,7 @@ export class User {
   _id: number;
   email: string;
   name: string;
+  password: string;
   token: string;
   createdDate: Date;
   updatedDate: Date;

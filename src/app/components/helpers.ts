@@ -17,7 +17,11 @@ export class Helpers{
         return this.colors[colorIndex];
     }
 
-    setCurrentUser(userJSON: string){
+    setCurrentUser(user: User){
+        localStorage.setItem('currentUser', JSON.stringify(user));
+    }
+    
+    setCurrentUserJSON(userJSON: string){
         localStorage.setItem('currentUser', userJSON);
     }
 
