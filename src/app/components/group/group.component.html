@@ -1,0 +1,61 @@
+<div class="card" style="margin-top:10px;" [style.border-color]="color">
+    
+    <!-- Assign a Chore to a User -->
+    <div *ngIf="assigning">
+        <cm-group-assign
+            [user]=assginedGroupUser
+            [color]=color
+            (assigned)="onAssignCompleted()" 
+            (canceled)="onAssignCanceled()">
+        </cm-group-assign>
+    </div>
+    
+    <!-- Edit a Group -->
+    <div *ngIf="editing">
+        <cm-group-edit
+            [group]=group
+            [color]=color
+            (edited)="onGroupEdited($event)" 
+            (canceled)="onGroupEditCanceled()">
+        </cm-group-edit>
+    </div>
+    
+    <!-- Group Card -->
+    <div *ngIf="!editing && !assigning">
+        <div class="card-header">
+            <div>
+                <b>{{group.name}}</b>&nbsp;
+                <button 
+                    (click)="onGroupEdit()"
+                    class="btn btn-sm btn-outline-secondary btn-sm-action">
+                        <i class="fas fa-pencil-alt"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="list-group list-group-flush">
+                <div class="list-group-item"
+                    *ngFor="let groupUser of groupUsers;">
+                    <div class="row no-gutters">
+                        <div class="col-10 card-text text-left">
+                            &nbsp;{{groupUser.name}}
+                        </div>
+                        <div class="col-2 text-right">
+                            <button 
+                                type="button" 
+                                class="btn btn-sm btn-outline-secondary" 
+                                [style.border-color]="color" 
+                                (click)="onAssign(groupUser)">
+                                Assign
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div><small class="text-muted">Created on: {{group.createdDate | date:'shortDate'}}</small></div>
+            <div><small class="text-muted" *ngIf="group.updatedDate">Last updated: {{group.updatedDate | date:'shortDate'}}</small></div>
+        </div>
+    </div>
+</div>

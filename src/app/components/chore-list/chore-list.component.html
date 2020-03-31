@@ -1,0 +1,45 @@
+<ngb-accordion #acc="ngbAccordion" 
+    [activeIds]="activeIds"
+    (panelChange)="toggleAccordion($event)">
+
+    <!-- Chore list -->
+    <ngb-panel id="toggle-my-chores">
+        <ng-template ngbPanelTitle>
+            <span><h5>My Chores</h5></span>
+        </ng-template>
+        <div *ngIf="pendingChores && pendingChores.length > 0; then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock>
+            <ng-template ngbPanelContent>
+                <div class="row">
+                    <div class="col-sm-6" *ngFor="let chore of pendingChores; let i=index;">
+                        <cm-chore-item 
+                            [chore]="chore" 
+                            [color]="h.getColor(i)"
+                            (edited)="onChoreUpdated($event)">
+                        </cm-chore-item>
+                    </div>
+                </div>
+            </ng-template>
+        </ng-template>
+        <ng-template #elseBlock>
+            <ng-template ngbPanelContent>
+                <div class="row no-gutters" style="margin-top: 10px;">
+                    <div class="col-12 text-left">
+                        <h5>Nothing to do. Yay!</h5>
+                    </div>
+                </div>
+            </ng-template>
+        </ng-template>
+    </ngb-panel>
+    
+    <!-- History -->
+    <ngb-panel id="toggle-history">
+        <ng-template ngbPanelTitle>
+            <span><h5>History</h5></span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+            <cm-chore-history-list></cm-chore-history-list>
+        </ng-template>
+    </ngb-panel>
+
+</ngb-accordion>

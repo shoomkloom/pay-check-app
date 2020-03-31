@@ -1,0 +1,17 @@
+<div *ngIf="chores.length == 0; then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>
+    <div class="row no-gutters">
+        <div class="col-12 text-left">
+            <h5>No history items found. Try again later.</h5>
+        </div>        
+    </div>
+</ng-template>
+<ng-template #elseBlock>
+    <div class="list-group" style="margin-top: 10px;">
+        <div *ngFor="let chore of chores | choreListFilter: choreFilters; let i= index;">
+            <cm-chore-history-item
+                [chore]="chore">
+            </cm-chore-history-item>
+        </div>
+    </div>
+</ng-template>

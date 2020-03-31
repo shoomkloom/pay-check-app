@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~../node_modules/bootstrap/dist/css/bootstrap.css";
+@import "~../node_modules/@ng-select/ng-select/themes/default.theme.css";
+
+.tab-content-panel {
+    padding: 5px;
+    background-color: white;
+}
+
+.btn-sm-action {
+    color:lightgrey;
+    border-color:lightgrey;
+}
+
+.hebrew {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+}
+

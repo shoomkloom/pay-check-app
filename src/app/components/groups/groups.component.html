@@ -1,0 +1,40 @@
+<!-- Form: Create New Group -->
+<div *ngIf="creatingNew == true">
+    <cm-group-create 
+        (created)="onGroupCreated($event)" 
+        (canceled)="onGroupCreateCanceled()">
+    </cm-group-create>
+</div>
+
+<!-- Group list -->
+<div [hidden]="creatingNew == true || assignChore == true">
+    <button class="btn btn-outline-primary" 
+        (click)="onNewGroup()">
+        Create New Group
+    </button>
+    <div *ngIf="groups.length == 0; then thenBlock else elseBlock"></div>
+    <ng-template #thenBlock>
+        <div class="row no-gutters" style="margin-top: 10px;">
+            <div class="col-12 text-left">
+                <h5>You have not created any Groups yet, why not create a new one?</h5>
+            </div>        
+        </div>
+    </ng-template>
+    <ng-template #elseBlock>
+        <div class="row no-gutters" style="margin-top: 10px;">
+            <div class="col-12 text-left">
+                <h5>My Groups:</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6" *ngFor="let group of groups; let i=index;">
+                <cm-group 
+                    [group]="group" 
+                    [color]="helpers.getColor(i)" 
+                    (assigned)="onChoreAssignClicked($event)">
+                </cm-group>
+            </div>
+        </div>
+    </ng-template>
+</div>
+

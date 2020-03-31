@@ -1,0 +1,61 @@
+<!-- Form: Create New Chore Template -->
+<div class="container" style="margin:10px;">
+    <h5>Assign a Chore:</h5>
+    <form (ngSubmit)="onSubmit()" #assignChoreTemplateForm="ngForm">
+        <div class="form-group row">
+            <div class="col-sm-3" style="margin-top: 5px;">
+                <label for="name">Name:</label>
+            </div>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="name"
+                    readonly
+                    [style.border-color]="color" 
+                    [(ngModel)]="user.name" name="name"
+                    #name="ngModel">
+                <div [hidden]="name.valid || name.pristine"
+                    class="alert alert-danger">
+                    Name is required
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="members">Select Chore Type:</label>
+            <ng-select #MemberNgSelect
+                [items]="choreTemplates"
+                required
+                bindLabel="name"
+                placeholder="Type to search"
+                [multiple]="false"
+                [searchable]="true" 
+                [clearable]="true"
+                [hideSelected]="true"
+                [closeOnSelect]="true"
+                [clearSearchOnAdd]="true"
+                [(ngModel)]="selected" name="memberSelect">
+            </ng-select>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+              <input class="form-control" 
+                [style.border-color]="color" 
+                placeholder="yyyy-mm-dd"
+                name="dp" 
+                [displayMonths]="2"
+                [(ngModel)]="choreDate" 
+                ngbDatepicker 
+                #d="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" 
+                    (click)="d.toggle()" 
+                    type="button">
+                    <i class="far fa-calendar-alt"></i>
+                </button>
+              </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" 
+            [disabled]="!assignChoreTemplateForm.form.valid">Assign
+        </button>
+        <a href="#" class="btn btn-link" (click)="onCancel()">Cancel</a>
+    </form>
+</div>
