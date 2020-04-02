@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 import { ChoreListFilters } from '../pipes/chore-list-filter';
+import { UserData } from '../models/user-data';
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +18,7 @@ export class Helpers{
         return this.colors[colorIndex];
     }
 
-    setCurrentUser(user: User){
+    setCurrentUser(user: User) {
         localStorage.setItem('currentUser', JSON.stringify(user));
     }
     
@@ -25,12 +26,20 @@ export class Helpers{
         localStorage.setItem('currentUser', userJSON);
     }
 
-    clearCurrentUser(){
+    clearCurrentUser() {
         localStorage.setItem('currentUser', JSON.stringify({id: -1}));
     }
 
-    getCurrentUser() : User{
+    getCurrentUser() : User {
         return (JSON.parse(localStorage.getItem('currentUser')) as User);
+    }
+
+    setCurrentUserData(userData) {
+        localStorage.setItem('currentUserData', JSON.stringify(userData));
+    }
+    
+    getCurrentUserData() : UserData {
+        return (JSON.parse(localStorage.getItem('currentUserData')) as UserData);
     }
 
     setToken(token: string){
@@ -53,11 +62,11 @@ export class Helpers{
         return localStorage.getItem('activeIds');
     }
 
-    setChoreListFilters(choreListFilters: ChoreListFilters){
+    setChoreListFilters(choreListFilters: ChoreListFilters) {
         localStorage.setItem('choreListFilters', JSON.stringify(choreListFilters));
     }
 
-    getChoreListFilters(): ChoreListFilters{
+    getChoreListFilters(): ChoreListFilters {
         return (JSON.parse(localStorage.getItem('choreListFilters')) as ChoreListFilters);
     }
 }

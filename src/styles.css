@@ -17,3 +17,9 @@
     direction: rtl;
 }
 
+.no-space-break{
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow: hidden;
+}
+

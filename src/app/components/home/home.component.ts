@@ -4,6 +4,8 @@ import { first } from 'rxjs/operators';
 import { User } from '../../models/user';
 import { ServerApiService } from '../../services/server-api.service';
 import { AlertService } from 'src/app/services/alert.service';
+import { Helpers } from '../helpers';
+import { UserData } from 'src/app/models/user-data';
 
 
 @Component({
@@ -13,20 +15,21 @@ import { AlertService } from 'src/app/services/alert.service';
 })
 export class HomeComponent implements OnInit {
   currentUser: User;
-  users = [];
+  userData: UserData;
 
   constructor(
     private serverApi: ServerApiService,
-    private alertService: AlertService) { }
+    private alertService: AlertService,
+    private helpers: Helpers
+  ) { }
 
   ngOnInit(): void {
     this.alertService.clear();    
+    
+    this.userData = this.helpers.getCurrentUserData();
+
     this.serverApi.currentUser.subscribe(userData => {
       this.currentUser = userData;
     });
-  }
-
-  tabClicked(tabName){
-    this.alertService.clear();
   }
 }

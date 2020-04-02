@@ -106,6 +106,32 @@ export class ServerApiService {
     return this.httpClient.get(url, this.getAuthHttpOptions());
   }
 
+  //UserDatas
+  userDataCreate(userData){
+    const url = this.url + '/api/user-datas';
+    return this.httpClient.post(url, JSON.stringify(userData), this.getAuthHttpOptions());
+  }
+
+  userDatasGet(){
+    const url = this.url + '/api/userdatas';
+    return this.httpClient.get(url, this.getAuthHttpOptions());
+  }
+
+  userDataGet(userid: number){
+    const url = this.url + '/api/userdatas/' + userid;
+    return this.httpClient.get(url, this.getAuthHttpOptions());
+  }
+
+  userDataUpdate(userData){
+    const url = this.url + '/api/user-datas/' + userData.userid;
+    return this.httpClient.put(url, JSON.stringify(userData), this.getAuthHttpOptions());
+  }
+
+  userDataDelete(Id: number){
+    const url = this.url + '/api/user-datas/' + Id;
+    return this.httpClient.delete(url, this.getAuthHttpOptions());
+  }
+
   //Groups
   groupsGet(){
     const url = this.url + '/api/groups';

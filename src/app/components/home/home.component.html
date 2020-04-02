@@ -1,34 +1,18 @@
 <div *ngIf="currentUser.name; then thenBlock else elseBlock"></div>
 <ng-template #thenBlock>
-    <h2>Hi {{currentUser.name}}!</h2>
-    <ul class="nav nav-tabs nav-pills justify-content-end" id="myTab" role="tablist">
-      <li class="nav-item" (click)="tabClicked('me-tab')">
-        <a 
-          class="nav-link active" id="me-tab" data-toggle="tab" href="#me" 
-          role="tab" aria-controls="me" aria-selected="true">Me</a>
-      </li>
-      <li class="nav-item" (click)="tabClicked('my-groups-tab')">
-        <a class="nav-link" id="my-groups-tab" data-toggle="tab" href="#my-groups" 
-        role="tab" aria-controls="my-groups" aria-selected="false">My Groups</a>
-      </li>
-      <li class="nav-item" (click)="tabClicked('chore-templates-tab')">
-        <a class="nav-link" id="chore-templates-tab" data-toggle="tab" href="#chore-templates" 
-        role="tab" aria-controls="chore-templates" aria-selected="false">Chore Types</a>
-      </li>
-    </ul>
-    <div class="tab-content tab-content-panel" id="myTabContent">
-      <div class="tab-pane fade show active" id="me" role="tabpanel" aria-labelledby="me-tab">
-        <cm-chore-list></cm-chore-list>
-      </div>
-      <div class="tab-pane fade" id="my-groups" role="tabpanel" aria-labelledby="my-groups-tab">
-        <cm-groups></cm-groups> 
-      </div>
-      <div class="tab-pane fade" id="chore-templates" role="tabpanel" aria-labelledby="chore-templates-tab">
-        <cm-chore-templates></cm-chore-templates>
-      </div>
+  <div *ngIf="!userData || !userData.fullyregestered; then thenRegBlock else elseRegBlock"></div>
+  <ng-template #thenRegBlock>
+    <pc-register-flow></pc-register-flow>
+  </ng-template>
+  <ng-template #elseRegBlock>
+    <div class="row hebrew justify-content-start">
+      הכל טוב אח שלו...
     </div>
+  </ng-template>
 </ng-template>
 <ng-template #elseBlock>
-    <h1>Hi!</h1>
-    <p>Please login to start</p>    
+  <div class="row hebrew justify-content-end">
+    <h1>שלום!</h1>
+    <p>כדי להתחיל יש להיכנס או להירשם לאתר.</p>    
+  </div>
 </ng-template>

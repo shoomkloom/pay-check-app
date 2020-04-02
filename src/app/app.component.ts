@@ -21,6 +21,10 @@ export class AppComponent implements OnInit {
       this.serverApi.currentUser.subscribe(userData => {
         this.currentUser = userData;
       });
+
+      if(!this.currentUser || !this.currentUser.name){
+        this.router.navigate(['/login']);
+      }
   }
 
   logout() {

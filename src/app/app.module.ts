@@ -33,6 +33,8 @@ import localeHe from '@angular/common/locales/he';
 import { ChoreHistoryListComponent } from './components/chore-history-list/chore-history-list.component';
 import { ChoreHistoryItemComponent } from './components/chore-history-item/chore-history-item.component';
 import { ChoreListFilterPipe } from './pipes/chore-list-filter.pipe';
+import { Regstep01Component } from './components/regstep01/regstep01.component';
+import { RegisterFlowComponent } from './components/register-flow/register-flow.component';
 registerLocaleData(localeHe, 'he');
 
 @NgModule({
@@ -56,7 +58,9 @@ registerLocaleData(localeHe, 'he');
     ChoreListComponent,
     ChoreHistoryListComponent,
     ChoreHistoryItemComponent,
-    ChoreListFilterPipe
+    ChoreListFilterPipe,
+    Regstep01Component,
+    RegisterFlowComponent
   ],
   imports: [
     BrowserModule,
