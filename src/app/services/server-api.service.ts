@@ -20,7 +20,7 @@ export class ServerApiService {
     private httpClient: HttpClient,
     private helpers: Helpers) { 
     
-      if(this.helpers.getCurrentUser() == null){
+    if(this.helpers.getCurrentUser() == null){
       this.clearUser();
     }
     this.currentUserSubject = new BehaviorSubject<User>(this.helpers.getCurrentUser());
@@ -35,6 +35,7 @@ export class ServerApiService {
   clearUser(){
     this.helpers.clearCurrentUser();
     this.helpers.clearToken();
+    this.helpers.clearCurrentUserData();
   }
 
   getAuthHttpOptions(){

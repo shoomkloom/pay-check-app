@@ -18,14 +18,14 @@
                 </div>
             </div>
             <div class="form-group text-right">
-                <label for="email">כתובת אימייל:</label>
+                <label for="emailaddress">כתובת אימייל:</label>
                 <input type="email" class="form-control text-left" 
                 dir="ltr"
-                id="email"
+                id="emailaddress"
                 required
-                [(ngModel)]="user.email" name="email"
-                #email="ngModel">
-                <div [hidden]="email.valid || email.pristine"
+                [(ngModel)]="user.email" name="emailaddress"
+                #emailaddress="ngModel">
+                <div [hidden]="emailaddress.valid || emailaddress.pristine"
                     class="alert alert-danger">
                     דרושה כתובת אימייל
                 </div>
@@ -47,7 +47,7 @@
                 </div>
             </div>
                 <button type="submit" class="btn btn-primary" 
-                [disabled]="!registerForm.form.valid && loading">
+                [disabled]="!registerForm.valid || loading || registerForm.errors">
                 <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                 הרשמה
             </button>

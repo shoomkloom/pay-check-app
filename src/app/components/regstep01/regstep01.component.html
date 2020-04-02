@@ -32,6 +32,10 @@
             [closeOnSelect]="true"
             [clearSearchOnAdd]="true"
             [(ngModel)]="userData.hachshara" name="hachsharaSelect">
+            <div [hidden]="hachsharaSelect.valid || hachsharaSelect.pristine"
+                class="alert alert-danger">
+                צריך למלא את כל השדות
+            </div>
         </ng-select>
     </div>
     <div class="form-group text-right">
@@ -43,6 +47,10 @@
         required
         [(ngModel)]="userData.vetekyears" name="vetekyears"
         #vetekyears="ngModel">
+        <div [hidden]="vetekyears.valid || vetekyears.pristine"
+            class="alert alert-danger">
+            צריך למלא את כל השדות
+        </div>
     </div>
     <div class="form-group text-right">
         <div class="form-check">
@@ -74,7 +82,7 @@
         </div>
     </div>
     <button type="submit" class="btn btn-primary" style="margin-top: 50px;"
-        [disabled]="!regstep01Form.valid && loading">
+        [disabled]="!regstep01Form.valid || loading || regstep01Form.errors">
         <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
         המשך
     </button>

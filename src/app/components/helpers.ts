@@ -42,6 +42,10 @@ export class Helpers{
         return (JSON.parse(localStorage.getItem('currentUserData')) as UserData);
     }
 
+    clearCurrentUserData(){
+        localStorage.setItem('currentUserData', JSON.stringify({id: -1}));
+    }
+
     setToken(token: string){
         localStorage.setItem('token', token);
     }
