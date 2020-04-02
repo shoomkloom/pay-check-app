@@ -19,7 +19,7 @@
         </div>
     </div>
     <div class="form-group text-right">
-        <label for="hachshara">הכשרה:</label>
+        <label for="hachsharaSelect">הכשרה:</label>
         <ng-select #MemberNgSelect
             [items]="hachsharas"
             required
@@ -32,10 +32,6 @@
             [closeOnSelect]="true"
             [clearSearchOnAdd]="true"
             [(ngModel)]="userData.hachshara" name="hachsharaSelect">
-            <div [hidden]="hachsharaSelect.valid || hachsharaSelect.pristine"
-                class="alert alert-danger">
-                צריך למלא את כל השדות
-            </div>
         </ng-select>
     </div>
     <div class="form-group text-right">
