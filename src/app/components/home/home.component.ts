@@ -15,7 +15,6 @@ import { UserData } from 'src/app/models/user-data';
 })
 export class HomeComponent implements OnInit {
   currentUser: User;
-  userData: UserData;
 
   constructor(
     private serverApi: ServerApiService,
@@ -26,8 +25,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.alertService.clear();    
     
-    this.userData = this.helpers.getCurrentUserData();
-
     this.serverApi.currentUser.subscribe(userData => {
       this.currentUser = userData;
     });

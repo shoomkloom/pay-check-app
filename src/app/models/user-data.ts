@@ -1,4 +1,13 @@
 export class UserData {
+
+  constructor(){
+    this.teudathoraa = false;
+    this.ofekhadash = false;
+    this.zahalhoraa = false;
+    this.policehoraa = false;
+    this.madrichshelach = false;
+  }
+
   _id: number;
   userid: number;
   
@@ -10,9 +19,9 @@ export class UserData {
   gmuleihishtalmut: string;
 
   //regstep02:
-  ofekhadash: string;
+  ofekhadash: boolean;
   vetekformaly: number;
-  vetekformalystart: Date;
+  vetekformalystart: string;
   veteknotformaly: number;
   vetekzahalpolice: number;
   sadirmonths: number;
@@ -24,5 +33,7 @@ export class UserData {
   vetekprofessional: number;
   vetekminhalit: number;
 
-  fullyregestered: boolean;
+  //regstep03:
+  tlushusercode: string;
+  tlushpassword: string;
 }

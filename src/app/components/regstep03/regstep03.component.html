@@ -1,0 +1,44 @@
+<div class="row hebrew justify-content-start">
+    <div class col-sm-12>
+        <h3 class="justify-content-end">נתוני גישה לתלוש באתר משרד החינוך:</h3>
+    </div>
+</div>
+<form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group text-right">
+                <label for="tlushusercode">קוד משתמש:</label>
+                <input type="text" 
+                    class="form-control text-left" 
+                    dir="ltr"
+                    id="tlushusercode"
+                    required
+                    [(ngModel)]="userData.tlushusercode" name="tlushusercode"
+                    #tlushusercode="ngModel">
+                <div [hidden]="tlushusercode.valid || tlushusercode.pristine"
+                    class="alert alert-danger">
+                    דרוש קוד משתמש
+                </div>
+            </div>
+            <div class="form-group text-right">
+                <label for="tlushpassword">סיסמה:</label>
+                <input type="password" 
+                class="form-control text-left" 
+                dir="ltr"
+                id="tlushpassword"
+                required
+                [(ngModel)]="userData.tlushpassword" name="tlushpassword"
+                #tlushpassword="ngModel">
+                <div [hidden]="tlushpassword.valid || tlushpassword.pristine"
+                    class="alert alert-danger">
+                    דרושה סיסמה
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" 
+                [disabled]="!loginForm.valid || loading || loginForm.errors">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                שלח
+            </button>
+        </div>
+    </div>
+</form>

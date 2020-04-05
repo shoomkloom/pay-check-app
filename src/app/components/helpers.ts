@@ -27,7 +27,7 @@ export class Helpers{
     }
 
     clearCurrentUser() {
-        localStorage.setItem('currentUser', JSON.stringify({id: -1}));
+        localStorage.setItem('currentUser', JSON.stringify({ }));
     }
 
     getCurrentUser() : User {
@@ -43,7 +43,7 @@ export class Helpers{
     }
 
     clearCurrentUserData(){
-        localStorage.setItem('currentUserData', JSON.stringify({id: -1}));
+        localStorage.setItem('currentUserData', JSON.stringify({ }));
     }
 
     setToken(token: string){

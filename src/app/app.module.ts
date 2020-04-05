@@ -35,6 +35,8 @@ import { ChoreHistoryItemComponent } from './components/chore-history-item/chore
 import { ChoreListFilterPipe } from './pipes/chore-list-filter.pipe';
 import { Regstep01Component } from './components/regstep01/regstep01.component';
 import { RegisterFlowComponent } from './components/register-flow/register-flow.component';
+import { Regstep02Component } from './components/regstep02/regstep02.component';
+import { Regstep03Component } from './components/regstep03/regstep03.component';
 registerLocaleData(localeHe, 'he');
 
 @NgModule({
@@ -60,7 +62,9 @@ registerLocaleData(localeHe, 'he');
     ChoreHistoryItemComponent,
     ChoreListFilterPipe,
     Regstep01Component,
-    RegisterFlowComponent
+    RegisterFlowComponent,
+    Regstep02Component,
+    Regstep03Component
   ],
   imports: [
     BrowserModule,

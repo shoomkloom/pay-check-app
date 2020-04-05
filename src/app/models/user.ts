@@ -10,4 +10,6 @@ export class User {
   token: string;
   createdDate: Date;
   updatedDate: Date;
+
+  fullyregestered: boolean;
 }

@@ -1,13 +1,18 @@
 <div *ngIf="currentUser.name; then thenBlock else elseBlock"></div>
 <ng-template #thenBlock>
-  <div *ngIf="!userData || !userData.fullyregestered; then thenRegBlock else elseRegBlock"></div>
-  <ng-template #thenRegBlock>
+  <div *ngIf="!currentUser || !currentUser.fullyregestered; then thenBlock2 else elseBlock2"></div>
+  <ng-template #thenBlock2>
     <pc-register-flow></pc-register-flow>
   </ng-template>
-  <ng-template #elseRegBlock>
+  <ng-template #elseBlock2>
     <div class="row hebrew justify-content-start">
-      הכל טוב אח שלו...
+      <h5>שלום {{currentUser.name}}</h5>
+  </div>
+  <div class="row hebrew text-right">
+    <div class="col-sm-12">
+      פה יופיעו נתונים על התלושים שלך...
     </div>
+  </div>
   </ng-template>
 </ng-template>
 <ng-template #elseBlock>

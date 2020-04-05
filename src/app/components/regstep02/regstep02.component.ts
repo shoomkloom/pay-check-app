@@ -1,27 +1,24 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { User } from 'src/app/models/user';
+import { UserData } from 'src/app/models/user-data';
 import { ServerApiService } from 'src/app/services/server-api.service';
 import { AlertService } from 'src/app/services/alert.service';
-import { AppError } from 'src/app/app-error';
-import { UserData } from 'src/app/models/user-data';
 import { Helpers } from '../helpers';
-import { User } from 'src/app/models/user';
 
 @Component({
-  selector: 'pc-regstep01',
-  templateUrl: './regstep01.component.html',
-  styleUrls: ['./regstep01.component.css']
+  selector: 'pc-regstep02',
+  templateUrl: './regstep02.component.html',
+  styleUrls: ['./regstep02.component.css']
 })
-export class Regstep01Component implements OnInit {
-  currentUser: User;
+export class Regstep02Component implements OnInit {
   userData: UserData;
   loading = false;
   submitted = false;
-  hachsharas = ['תואר ראשון', 'תואר שני', 'תואר שלישי', 'מורה בכיר'];
-
-  @Output() step01Done = new EventEmitter();
+  vetekformalystart: number;
+  
+  @Output() step02Done = new EventEmitter();
 
   constructor(
-    private serverApi: ServerApiService,
     private alertService: AlertService,
     private helpers: Helpers
   ) { }
@@ -29,10 +26,6 @@ export class Regstep01Component implements OnInit {
   ngOnInit(): void {
     this.alertService.clear();  
 
-    this.serverApi.currentUser.subscribe(userData => {
-      this.currentUser = userData;
-    });
-    
     this.userData = this.helpers.getCurrentUserData();
     if(!this.userData || !this.userData.userid){
       this.userData = new UserData();
@@ -46,12 +39,12 @@ export class Regstep01Component implements OnInit {
     // reset alerts on submit
     this.alertService.clear();
 
-    this.userData.userid = this.currentUser._id;
+    this.userData.vetekformalystart = this.vetekformalystart.toString();
     this.helpers.setCurrentUserData(this.userData);
 
     this.submitted = false;
     this.loading = false;
 
-    this.step01Done.emit();
+    this.step02Done.emit();
   }
 }

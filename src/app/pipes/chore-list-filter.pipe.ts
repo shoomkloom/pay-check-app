@@ -22,8 +22,6 @@ export class ChoreListFilterPipe implements PipeTransform {
     if (!choreFilters) return items;
     
     return items.filter(item => {
-      /*@@*/console.log('ChoreListFilterPipe choreFilters=', choreFilters);
-
       const includeMaster = item.masterId === this.myId && choreFilters.Master === true;
       const includeSlave = item.slaveId === this.myId && choreFilters.Slave === true;
       const includePending = item.state === 'Pending' && choreFilters.Pending === true;

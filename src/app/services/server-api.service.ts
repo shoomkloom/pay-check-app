@@ -50,6 +50,10 @@ export class ServerApiService {
     return httpOptions;
   }
 
+  updateUser(user: User){
+    this.currentUserSubject.next(user);
+  }
+
   //Auth
   authGetValidUser(user: User){
     const url = this.url + '/api/auth';
@@ -63,7 +67,7 @@ export class ServerApiService {
         map((res: HttpResponse<Object>) => {
           //Store user details and jwt token in local storage to keep user logged in between page refreshes
           this.helpers.setCurrentUserJSON(JSON.stringify(res.body));
-          this.currentUserSubject.next(res.body as User);
+          this.updateUser(res.body as User);
           this.helpers.setToken(res.headers.get('x-auth-token'));
           return res.body as User;
         }),
@@ -105,6 +109,11 @@ export class ServerApiService {
   userGet(Id: number){
     const url = this.url + '/api/users/' + Id;
     return this.httpClient.get(url, this.getAuthHttpOptions());
+  }
+
+  userPut(user: User){
+    const url = this.url + '/api/users/' + user._id;
+    return this.httpClient.put(url, JSON.stringify(user), this.getAuthHttpOptions());
   }
 
   //UserDatas
