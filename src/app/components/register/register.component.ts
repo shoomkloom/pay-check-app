@@ -34,6 +34,8 @@ export class RegisterComponent implements OnInit {
     // reset alerts on submit
     this.alertService.clear();
 
+    this.user.fullyregestered = false;
+
     //Auth the user
     this.serverApi.userRegister(this.user)
       .subscribe(
