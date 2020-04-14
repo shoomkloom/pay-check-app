@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { User } from './models/user';
 import { ServerApiService } from './services/server-api.service';
+import { AlertService } from './services/alert.service';
 
 @Component({
   selector: 'pc-app-root',
@@ -15,7 +16,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private serverApi: ServerApiService) { }
+    private serverApi: ServerApiService,
+    private alertService: AlertService) { }
 
   ngOnInit() {
       this.serverApi.currentUser.subscribe(userData => {
@@ -28,6 +30,8 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
+      // reset alerts on logout
+      this.alertService.clear();
       this.serverApi.logout();
   }
 

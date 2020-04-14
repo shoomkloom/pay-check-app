@@ -1,6 +1,7 @@
 <div *ngIf="currentUser.name; then thenBlock else elseBlock"></div>
 <ng-template #thenBlock>
-  <div *ngIf="!currentUser || !currentUser.fullyregestered; then thenBlock2 else elseBlock2"></div>
+  <div *ngIf="!currentUser || !currentUser.fullyregestered; 
+              then thenBlock2 else elseBlock2"></div>
   <ng-template #thenBlock2>
     <pc-register-flow></pc-register-flow>
   </ng-template>
