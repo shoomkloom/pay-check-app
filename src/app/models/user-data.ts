@@ -21,7 +21,7 @@ export class UserData {
   //regstep02:
   ofekhadash: boolean;
   vetekformaly: number;
-  vetekformalystart: string;
+  vetekformalystart: number;
   veteknotformaly: number;
   vetekzahalpolice: number;
   sadirmonths: number;
@@ -32,8 +32,4 @@ export class UserData {
   madrichshelach: boolean;
   vetekprofessional: number;
   vetekminhalit: number;
-
-  //regstep03:
-  tlushusercode: string;
-  tlushpassword: string;
 }

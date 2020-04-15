@@ -1,22 +1,49 @@
-<div *ngIf="currentUser.name; then thenBlock else elseBlock"></div>
+<div *ngIf="currentUser && currentUser.name; then thenBlock else elseBlock"></div>
 <ng-template #thenBlock>
-  <div *ngIf="!currentUser || !currentUser.fullyregestered; 
-              then thenBlock2 else elseBlock2"></div>
+  <div *ngIf="currentUser.fullyregestered; then thenBlock2 else elseBlock2"></div>
   <ng-template #thenBlock2>
-    <pc-register-flow></pc-register-flow>
+    <div *ngIf="currentUser.tlushpassword; then thenBlock3 else elseBlock3"></div>
+    <ng-template #thenBlock3>
+      <!-- Done: currentUser.tlushpassword = !null -->
+      <div class="row hebrew justify-content-start">
+        <h3>שלום {{currentUser.name}}</h3>
+      </div>
+      <div class="row hebrew text-right">
+        <div class="col-sm-12">
+          פה יופיעו נתונים על התלושים שלך...
+        </div>
+      </div>
+      <!-- End Done -->
+    </ng-template>
+    <ng-template #elseBlock3>
+      <div *ngIf="currentUser.tlushusercode; then thenBlock4 else elseBlock4"></div>
+      <ng-template #thenBlock4>
+        <!-- Reg Tlush Data: currentUser.tlushusercode = !null -->
+        <div class="row hebrew text-right">
+          <div class col-sm-12>
+              <h4>נתוני גישה לתלוש באתר משרד החינוך לא תקינים.</h4>
+              <h4>יש למלא אותם שוב.</h4>
+          </div>
+        </div>
+        <pc-regtlushdata></pc-regtlushdata>
+        <!-- End Reg Tlush Data -->
+      </ng-template>
+      <ng-template #elseBlock4>
+        <!-- Reg Tlush Data: currentUser.tlushusercode = null -->
+        <pc-regtlushdata></pc-regtlushdata>
+        <!-- End Reg Tlush Data -->
+      </ng-template>
+    </ng-template>
   </ng-template>
   <ng-template #elseBlock2>
-    <div class="row hebrew justify-content-start">
-      <h5>שלום {{currentUser.name}}</h5>
-  </div>
-  <div class="row hebrew text-right">
-    <div class="col-sm-12">
-      פה יופיעו נתונים על התלושים שלך...
-    </div>
-  </div>
+    <!-- Register Flow: currentUser.fullyregestered = false -->
+    <pc-register-flow></pc-register-flow>
+    <!-- End Register Flow -->
   </ng-template>
 </ng-template>
 <ng-template #elseBlock>
-  <div class="row justify-content-start hebrew"><h2>שלום!</h2></div>
+  <!-- Logged out: currentUser.name = null -->
+  <div class="row justify-content-start hebrew"><h3>שלום!</h3></div>
   <div class="row justify-content-start hebrew">כדי להתחיל יש להיכנס או להירשם לאתר.</div>
+  <!-- End Logged out -->
 </ng-template>

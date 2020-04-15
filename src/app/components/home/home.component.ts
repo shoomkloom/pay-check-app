@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { first } from 'rxjs/operators';
 
 import { User } from '../../models/user';
 import { ServerApiService } from '../../services/server-api.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { Helpers } from '../helpers';
-import { UserData } from 'src/app/models/user-data';
-
 
 @Component({
   selector: 'pc-home',

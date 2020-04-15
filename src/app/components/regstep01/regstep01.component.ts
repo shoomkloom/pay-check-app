@@ -36,6 +36,7 @@ export class Regstep01Component implements OnInit {
     this.userData = this.helpers.getCurrentUserData();
     if(!this.userData || !this.userData.userid){
       this.userData = new UserData();
+      this.userData.userid = this.currentUser._id;
     }
   }
 
@@ -46,7 +47,6 @@ export class Regstep01Component implements OnInit {
     // reset alerts on submit
     this.alertService.clear();
 
-    this.userData.userid = this.currentUser._id;
     this.helpers.setCurrentUserData(this.userData);
 
     this.submitted = false;

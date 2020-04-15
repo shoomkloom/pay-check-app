@@ -1,19 +1,5 @@
 <!-- Starting... -->
-<div *ngIf="regstep01 === false && regstep02 === false && regstep03 === false">
-  <!--
-  <div *ngIf="fullyregestered; then thenBlock else elseBlock"></div>
-  <ng-template #thenBlock>
-    <div class="row hebrew justify-content-start">
-      <h5>שלום {{currentUser.name}}</h5>
-    </div>
-    <div class="row hebrew text-right">
-      <div class="col-sm-12">
-        הרישום עבר בהצלחה.
-      </div>
-    </div>
-  </ng-template>
-  <ng-template #elseBlock>
-  -->
+<div *ngIf="regstep01 === false && regstep02 === false">
     <div class="row hebrew justify-content-start">
         <h5>שלום {{currentUser.name}}</h5>
     </div>
@@ -38,9 +24,5 @@
 </div>
 <!-- Reg Step 02 -->
 <div *ngIf="regstep02 === true">
-  <pc-regstep02 (step02Done)="step02Done();"></pc-regstep02>
-</div>
-<!-- Reg Step 03 -->
-<div *ngIf="regstep03 === true">
-  <pc-regstep03 (step03Done)="step03Done();"></pc-regstep03>
+  <pc-regstep02></pc-regstep02>
 </div>

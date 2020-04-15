@@ -11,7 +11,7 @@ import { AlertService } from './services/alert.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'Chore Master';
+  title = 'Pay Check';
   currentUser: User;
 
   constructor(

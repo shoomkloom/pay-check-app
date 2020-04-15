@@ -12,4 +12,9 @@ export class User {
   updatedDate: Date;
 
   fullyregestered: boolean;
+
+  tlushusercode: string;
+  tlushpassword: string;
+  gettlushDate: Date;
+  processtlushDate: Date;
 }

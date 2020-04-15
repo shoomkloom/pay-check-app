@@ -1,28 +1,23 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { User } from 'src/app/models/user';
-import { UserData } from 'src/app/models/user-data';
 import { ServerApiService } from 'src/app/services/server-api.service';
 import { AlertService } from 'src/app/services/alert.service';
-import { Helpers } from '../helpers';
 import { AppError } from 'src/app/app-error';
 
 @Component({
-  selector: 'pc-regstep02',
-  templateUrl: './regstep02.component.html',
-  styleUrls: ['./regstep02.component.css']
+  selector: 'pc-regtlushdata',
+  templateUrl: './regtlushdata.component.html',
+  styleUrls: ['./regtlushdata.component.css']
 })
-export class Regstep02Component implements OnInit {
+export class RegTlushDataComponent implements OnInit {
+  tempUser = new User();
   currentUser: User;
-  userData: UserData;
   loading = false;
   submitted = false;
-  
-  @Output() step02Done = new EventEmitter();
 
   constructor(
-    private alertService: AlertService,
     private serverApi: ServerApiService,
-    private helpers: Helpers
+    private alertService: AlertService
   ) { }
 
   ngOnInit(): void {
@@ -31,12 +26,6 @@ export class Regstep02Component implements OnInit {
     this.serverApi.currentUser.subscribe(user => {
       this.currentUser = user;
     });
-
-    this.userData = this.helpers.getCurrentUserData();
-    if(!this.userData || !this.userData.userid){
-      this.userData = new UserData();
-      this.userData.userid = this.currentUser._id;
-    }
   }
 
   onSubmit() {
@@ -46,15 +35,17 @@ export class Regstep02Component implements OnInit {
     // reset alerts on submit
     this.alertService.clear();
 
-    this.helpers.setCurrentUserData(this.userData);
+    this.currentUser.tlushusercode = this.tempUser.tlushusercode;
+    this.currentUser.tlushpassword = this.tempUser.tlushpassword;
 
-    //Update the user data
-    this.serverApi.userDataCreate(this.userData)
+    //Update the user
+    this.serverApi.userPut(this.currentUser)
       .subscribe(
-        (validUserData: UserData) => {
-          this.helpers.setCurrentUserData(validUserData);
-          this.currentUser.fullyregestered = true;
-          this.serverApi.updateUser(this.currentUser);
+        (validUser: User) => {
+          this.serverApi.updateUser(validUser); //Update the current user instance in serverApi
+          this.submitted = false;
+          this.loading = false;
+          this.alertService.success('ההרשמה הסתיימה בהצלחה.');
         },
         (error: AppError) => {
           console.log('ERROR:', error);
@@ -64,6 +55,7 @@ export class Regstep02Component implements OnInit {
           else{
             this.alertService.error('תקלה לא מזוהה, בבקשה לנסות שוב.');
           }
+          this.loading = false;
         }
       )
   }

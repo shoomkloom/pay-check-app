@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
-import { ChoreListFilters } from '../pipes/chore-list-filter';
 import { UserData } from '../models/user-data';
 
 @Injectable({
@@ -64,13 +63,5 @@ export class Helpers{
 
     getChoreListAccordionActiveIds(): string{
         return localStorage.getItem('activeIds');
-    }
-
-    setChoreListFilters(choreListFilters: ChoreListFilters) {
-        localStorage.setItem('choreListFilters', JSON.stringify(choreListFilters));
-    }
-
-    getChoreListFilters(): ChoreListFilters {
-        return (JSON.parse(localStorage.getItem('choreListFilters')) as ChoreListFilters);
     }
 }

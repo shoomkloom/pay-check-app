@@ -1,6 +1,6 @@
 <div class="row hebrew justify-content-start">
     <div class col-sm-12>
-        <h3 class="justify-content-end">שאלון חישוב וותק:</h3>
+        <h5 class="justify-content-end">שאלון חישוב וותק:</h5>
     </div>
 </div>
 <form (ngSubmit)="onSubmit()" #regstep02Form="ngForm">
@@ -21,17 +21,17 @@
         </div>
     </div>
     <div class="form-group text-right">
-        <label class="no-space-break" for="vetekformalystartNumber">
+        <label class="no-space-break" for="vetekformalystart">
             באיזו שנה התחלת את עבודתך בחינוך הפורמלי?
         </label>
         <input type="number" 
         class="form-control text-left" 
         dir="ltr"
-        id="vetekformalystartNumber"
+        id="vetekformalystart"
         required
-        [(ngModel)]="vetekformalystart" name="vetekformalystartNumber"
-        #vetekformalystartNumber="ngModel">
-        <div [hidden]="vetekformalystartNumber.valid || vetekformalystartNumber.pristine"
+        [(ngModel)]="userData.vetekformalystart" name="vetekformalystart"
+        #vetekformalystart="ngModel">
+        <div [hidden]="vetekformalystart.valid || vetekformalystart.pristine"
             class="alert alert-danger">
             צריך למלא את כל השדות
         </div>

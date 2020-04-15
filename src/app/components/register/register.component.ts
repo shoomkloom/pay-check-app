@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
       .subscribe(
         (validUser: User) => {
           this.alertService.success('הרשמה הצליחה', true);
-          this.helpers.setCurrentUser(validUser);
+          this.serverApi.updateUser(validUser);
           this.router.navigate(['/login']);
         },
         (error: AppError) => {
