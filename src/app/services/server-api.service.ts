@@ -10,7 +10,7 @@ import { Helpers } from '../components/helpers';
   providedIn: 'root'
 })
 export class ServerApiService {
-  url = "http://localhost:3000";
+  url = 'https://pay-check-server.azurewebsites.net';
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
