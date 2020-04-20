@@ -37,7 +37,7 @@ export class ServerApiService {
   }
 
   getAuthHttpOptions(){
-    //*@@*/console.log('token:', this.helpers.getToken());
+    //*@@*/console.log('getAuthHttpOptions token:', this.helpers.getToken());
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
