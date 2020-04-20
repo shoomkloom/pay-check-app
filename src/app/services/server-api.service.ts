@@ -38,7 +38,6 @@ export class ServerApiService {
 
   clearUser(){
     this.helpers.clearCurrentUser();
-    this.helpers.clearToken();
     this.helpers.clearCurrentUserData();
   }
 
@@ -74,7 +73,6 @@ export class ServerApiService {
           let validUser = res.body as User;
           validUser.token = res.headers.get('x-auth-token');
           this.updateUser(validUser);
-          this.helpers.setToken(validUser.token);
           return res.body as User;
         }),
         catchError( err => {

@@ -45,25 +45,6 @@ export class Helpers{
         localStorage.setItem('currentUserData', JSON.stringify({ }));
     }
 
-    setToken(token: string){
-        if(!token){
-            console.log("TOKEN SET NULL!");
-        }
-        else{
-            console.log("TOKEN SET");
-        }
-        localStorage.setItem('token', token);
-    }
-
-    getToken(){
-        return localStorage.getItem('token');
-    }
-
-    clearToken(){
-        console.log("TOKEN CLEARED");
-        localStorage.setItem('token', '0');
-    }
-
     setChoreListAccordionActiveIds(activeIds: string){
         localStorage.setItem('activeIds', activeIds);
     }
