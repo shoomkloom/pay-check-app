@@ -5,14 +5,16 @@ import { catchError, map } from 'rxjs/operators';
 import { AppError } from '../app-error';
 import { User } from '../models/user';
 import { Helpers } from '../components/helpers';
+import _ from "lodash";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServerApiService {
-  url = 'https://pay-check-server.azurewebsites.net';
+  url = 'https://pay-check-server.azurewebsites.net';//@@'http://localhost:3000';
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
+  private promiseUser: User;
 
   constructor(
     private httpClient: HttpClient,
@@ -23,6 +25,10 @@ export class ServerApiService {
     }
     this.currentUserSubject = new BehaviorSubject<User>(this.helpers.getCurrentUser());
     this.currentUser = this.currentUserSubject.asObservable();
+
+    this.currentUser.subscribe(user => {
+      this.promiseUser = user;
+    });
   }
 
   public logout(){
@@ -37,11 +43,11 @@ export class ServerApiService {
   }
 
   getAuthHttpOptions(){
-    //*@@*/console.log('getAuthHttpOptions token:', this.helpers.getToken());
+    //*@@*/console.log('getAuthHttpOptions token:', this.promiseUser.token);
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        'x-auth-token': this.helpers.getToken()
+        'x-auth-token': this.promiseUser.token
       })
     };
 
@@ -65,8 +71,10 @@ export class ServerApiService {
       .pipe(
         map((res: HttpResponse<Object>) => {
           //Store user details and jwt token in local storage to keep user logged in between page refreshes
-          this.updateUser(res.body as User);
-          this.helpers.setToken(res.headers.get('x-auth-token'));
+          let validUser = res.body as User;
+          validUser.token = res.headers.get('x-auth-token');
+          this.updateUser(validUser);
+          this.helpers.setToken(validUser.token);
           return res.body as User;
         }),
         catchError( err => {
@@ -88,7 +96,7 @@ export class ServerApiService {
       })
     };
 
-    return this.httpClient.post(url, JSON.stringify(user), httpOptions)
+    return this.httpClient.post(url, _.omit(user, ['token']), httpOptions)
       .pipe(catchError( err => {
             if (err.status == 401) {
                 return EMPTY;
@@ -109,9 +117,9 @@ export class ServerApiService {
     return this.httpClient.get(url, this.getAuthHttpOptions());
   }
 
-  userPut(user: User){
+  userPut(user){
     const url = this.url + '/api/users/' + user._id;
-    return this.httpClient.put(url, JSON.stringify(user), this.getAuthHttpOptions());
+    return this.httpClient.put(url, _.omit(user, ['token']), this.getAuthHttpOptions());
   }
 
   //UserDatas

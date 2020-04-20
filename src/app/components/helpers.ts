@@ -47,7 +47,10 @@ export class Helpers{
 
     setToken(token: string){
         if(!token){
-            console.log("TOKEN SET NULL in localstorage!");
+            console.log("TOKEN SET NULL!");
+        }
+        else{
+            console.log("TOKEN SET");
         }
         localStorage.setItem('token', token);
     }
@@ -57,7 +60,7 @@ export class Helpers{
     }
 
     clearToken(){
-        console.log("TOKEN CLEARED from localstorage!");
+        console.log("TOKEN CLEARED");
         localStorage.setItem('token', '0');
     }
 
