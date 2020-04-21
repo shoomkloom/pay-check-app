@@ -23,3 +23,9 @@
     overflow: hidden;
 }
 
+@media (orientation: landscape) {
+    .goodwidth {
+        max-width: 400px;
+    }
+}
+

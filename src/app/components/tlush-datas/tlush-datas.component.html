@@ -1,0 +1,25 @@
+<div *ngIf="loaded; then thenBlock else elseBlock"></div>
+    <ng-template #thenBlock>
+        <div class="row no-gutters hebrew justify-content-start" style="margin-top: 10px;">
+            <div class="col-12 text-right">
+                <h5>תלושי משכורת:</h5>
+            </div>
+        </div>
+        <div class="row no-gutters shadow-sm rounded-lg bg-white p-2 goodwidth">
+            <div class="col-12 text-right">
+                <a href="../../../assets/demotlush.pdf">תלוש אפריל 2020</a>
+            </div>
+            <div class="col-12 bg-light text-left">
+                <small class="text-muted">
+                    נוצר ב-<span dir="ltr">{{createdDate | date:'shortDate'}}</span>
+                </small>
+            </div>
+        </div>        
+    </ng-template>
+    <ng-template #elseBlock>
+        <div class="row no-gutters hebrew justify-content-start" style="margin-top: 10px;">
+            <div class="col-12 text-right">
+                <h5>עדיין לא התקבלו תוצאות</h5>
+            </div>        
+        </div>
+    </ng-template>

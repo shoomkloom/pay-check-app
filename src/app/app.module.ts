@@ -22,6 +22,7 @@ import { Regstep01Component } from './components/regstep01/regstep01.component';
 import { RegisterFlowComponent } from './components/register-flow/register-flow.component';
 import { Regstep02Component } from './components/regstep02/regstep02.component';
 import { RegTlushDataComponent } from './components/regtlushdata/regtlushdata.component';
+import { TlushDatasComponent } from './components/tlush-datas/tlush-datas.component';
 registerLocaleData(localeHe, 'he');
 
 @NgModule({
@@ -34,7 +35,8 @@ registerLocaleData(localeHe, 'he');
     Regstep01Component,
     RegisterFlowComponent,
     Regstep02Component,
-    RegTlushDataComponent
+    RegTlushDataComponent,
+    TlushDatasComponent
   ],
   imports: [
     BrowserModule,
