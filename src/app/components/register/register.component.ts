@@ -45,12 +45,10 @@ export class RegisterComponent implements OnInit {
       .subscribe(
         (validUser: User) => {
           this.appInsights.trackTrace('RegisterComponent: userRegister success!');
-          this.alertService.success('הרשמה הצליחה', true);
-          this.serverApi.updateUser(validUser);
+          this.loading = false;
           this.router.navigate(['/login']);
         },
         (error: AppError) => {
-          this.loading = false;
           this.appInsights.trackException(`RegisterComponent: ${JSON.stringify(error)}`);
           console.log('ERROR:', error);
           if(error.status === 400 || error.status === 401){
@@ -59,7 +57,7 @@ export class RegisterComponent implements OnInit {
           else{
             this.alertService.error(`(${error.status}) תקלה לא מזוהה ברישום, בבקשה לנסות שוב.`);
           }
-          
+          this.loading = false;
         }
       )
   }

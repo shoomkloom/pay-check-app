@@ -62,6 +62,7 @@ export class Regstep02Component implements OnInit {
           this.appInsights.trackTrace('Regstep02Component: userDataCreate success!');
           this.helpers.setCurrentUserData(validUserData);
           this.currentUser.fullyregestered = true;
+          this.loading = false;
           this.serverApi.updateUser(this.currentUser);
         },
         (error: AppError) => {

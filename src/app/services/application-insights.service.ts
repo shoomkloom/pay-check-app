@@ -29,7 +29,7 @@ export class ApplicationInsightsService {
   }
 
   setUserId(userId: string) {
-    this.appInsights.setAuthenticatedUserContext(userId);
+    this.appInsights.setAuthenticatedUserContext(userId, userId, true);
     this.devFlush();
   }
 

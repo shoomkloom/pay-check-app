@@ -71,6 +71,10 @@ export class ServerApiService {
   updateUser(user: User){
     this.appInsights.trackTrace('ServerApiService::updateUser(.)');
 
+    if(!user.token){
+      user.token = this.promiseUser.token;
+    }
+
     this.currentUserSubject.next(user);
     this.helpers.setCurrentUser(user);
 
