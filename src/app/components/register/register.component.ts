@@ -5,6 +5,7 @@ import { AppError } from '../../app-error';
 import { Helpers } from '../helpers';
 import { User } from 'src/app/models/user';
 import { Router } from '@angular/router';
+import { ApplicationInsightsService } from 'src/app/services/application-insights.service';
 
 @Component({
   selector: 'pc-register',
@@ -12,6 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  appInsights: ApplicationInsightsService;
   user: User = new User;
   loading = false;
   submitted = false;
@@ -19,15 +21,17 @@ export class RegisterComponent implements OnInit {
   constructor(
     private router: Router,
     private serverApi: ServerApiService,
-    private alertService: AlertService,
-    private helpers: Helpers
-  ) { }
+    private alertService: AlertService
+  ) { 
+    this.appInsights = new ApplicationInsightsService(router);
+  }
 
   ngOnInit(): void {
     this.alertService.clear();    
   }
 
   onSubmit() {
+    this.appInsights.trackTrace('RegisterComponent::onSubmit()');
     this.submitted = true;
     this.loading = true;
 
@@ -40,19 +44,22 @@ export class RegisterComponent implements OnInit {
     this.serverApi.userRegister(this.user)
       .subscribe(
         (validUser: User) => {
+          this.appInsights.trackTrace('RegisterComponent: userRegister success!');
           this.alertService.success('הרשמה הצליחה', true);
           this.serverApi.updateUser(validUser);
           this.router.navigate(['/login']);
         },
         (error: AppError) => {
+          this.loading = false;
+          this.appInsights.trackException(`RegisterComponent: ${JSON.stringify(error)}`);
           console.log('ERROR:', error);
           if(error.status === 400 || error.status === 401){
-            this.alertService.error('כניסה לא הצליחה, בבקשה לנסות שוב.');
+            this.alertService.error(`(${error.status}) הרשמה לא הצליחה, בבקשה לנסות שוב.`);
           }
           else{
-            this.alertService.error('תקלה לא מזוהה, בבקשה לנסות שוב.');
+            this.alertService.error(`(${error.status}) תקלה לא מזוהה ברישום, בבקשה לנסות שוב.`);
           }
-          this.loading = false;
+          
         }
       )
   }

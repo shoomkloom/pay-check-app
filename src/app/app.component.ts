@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { User } from './models/user';
 import { ServerApiService } from './services/server-api.service';
 import { AlertService } from './services/alert.service';
+import { ApplicationInsightsService } from './services/application-insights.service';
 
 @Component({
   selector: 'pc-app-root',
@@ -11,13 +12,17 @@ import { AlertService } from './services/alert.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  appInsights: ApplicationInsightsService;
   title = 'Pay Check';
   currentUser: User;
 
   constructor(
     private router: Router,
     private serverApi: ServerApiService,
-    private alertService: AlertService) { }
+    private alertService: AlertService
+  ) {
+    this.appInsights = new ApplicationInsightsService(router);
+   }
 
   ngOnInit() {
       this.serverApi.currentUser.subscribe(userData => {

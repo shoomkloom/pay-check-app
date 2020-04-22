@@ -5,6 +5,8 @@ import { ServerApiService } from 'src/app/services/server-api.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { Helpers } from '../helpers';
 import { AppError } from 'src/app/app-error';
+import { ApplicationInsightsService } from 'src/app/services/application-insights.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'pc-regstep02',
@@ -12,6 +14,7 @@ import { AppError } from 'src/app/app-error';
   styleUrls: ['./regstep02.component.css']
 })
 export class Regstep02Component implements OnInit {
+  appInsights: ApplicationInsightsService;
   currentUser: User;
   userData: UserData;
   loading = false;
@@ -20,10 +23,13 @@ export class Regstep02Component implements OnInit {
   @Output() step02Done = new EventEmitter();
 
   constructor(
+    private router: Router,
     private alertService: AlertService,
     private serverApi: ServerApiService,
     private helpers: Helpers
-  ) { }
+  ) { 
+    this.appInsights = new ApplicationInsightsService(router);
+  }
 
   ngOnInit(): void {
     this.alertService.clear();  
@@ -40,6 +46,7 @@ export class Regstep02Component implements OnInit {
   }
 
   onSubmit() {
+    this.appInsights.trackTrace('Regstep02Component::onSubmit()');
     this.submitted = true;
     this.loading = true;
 
@@ -52,18 +59,21 @@ export class Regstep02Component implements OnInit {
     this.serverApi.userDataCreate(this.userData)
       .subscribe(
         (validUserData: UserData) => {
+          this.appInsights.trackTrace('Regstep02Component: userDataCreate success!');
           this.helpers.setCurrentUserData(validUserData);
           this.currentUser.fullyregestered = true;
           this.serverApi.updateUser(this.currentUser);
         },
         (error: AppError) => {
+          this.appInsights.trackException(`Regstep02Component: ${JSON.stringify(error)}`);
           console.log('ERROR:', error);
           if(error.status === 400 || error.status === 401){
-            this.alertService.error('כניסה לא הצליחה, בבקשה לנסות שוב.');
+            this.alertService.error(`שגיאה בחיבור לשרת: ${error}`);
           }
           else{
-            this.alertService.error('תקלה לא מזוהה, בבקשה לנסות שוב.');
+            this.alertService.error(`שגיאה לא מזוהה בחיבור לשרת: ${error}`);
           }
+          this.loading = false;
         }
       )
   }

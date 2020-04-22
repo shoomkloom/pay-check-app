@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 import { UserData } from '../models/user-data';
+import { ApplicationInsightsService } from '../services/application-insights.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class Helpers{
     colors = ['#27AE60', '#F39C12', '#7D3C98', '#1A5276', '#D35400'];
+    
+    constructor(
+        private appInsights: ApplicationInsightsService
+      ) { }
 
     getColor(i: number){
         let colorIndex = i;
@@ -18,38 +23,37 @@ export class Helpers{
     }
 
     setCurrentUser(user: User) {
+        this.appInsights.trackTrace('Helpers::setCurrentUser(.)');
         localStorage.setItem('currentUser', JSON.stringify(user));
     }
     
     setCurrentUserJSON(userJSON: string){
+        this.appInsights.trackTrace('Helpers::setCurrentUserJSON(.)');
         localStorage.setItem('currentUser', userJSON);
     }
 
     clearCurrentUser() {
-        localStorage.setItem('currentUser', JSON.stringify({ }));
+        this.appInsights.trackTrace('Helpers::clearCurrentUser()');
+        localStorage.removeItem('currentUser');
     }
 
     getCurrentUser() : User {
+        this.appInsights.trackTrace('Helpers::clearCurrentUser()');
         return (JSON.parse(localStorage.getItem('currentUser')) as User);
     }
 
     setCurrentUserData(userData) {
+        this.appInsights.trackTrace('Helpers::setCurrentUserData(.)');
         localStorage.setItem('currentUserData', JSON.stringify(userData));
     }
     
     getCurrentUserData() : UserData {
+        this.appInsights.trackTrace('Helpers::getCurrentUserData()');
         return (JSON.parse(localStorage.getItem('currentUserData')) as UserData);
     }
 
     clearCurrentUserData(){
-        localStorage.setItem('currentUserData', JSON.stringify({ }));
-    }
-
-    setChoreListAccordionActiveIds(activeIds: string){
-        localStorage.setItem('activeIds', activeIds);
-    }
-
-    getChoreListAccordionActiveIds(): string{
-        return localStorage.getItem('activeIds');
+        this.appInsights.trackTrace('Helpers::clearCurrentUserDatas()');
+        localStorage.removeItem('currentUserData');
     }
 }

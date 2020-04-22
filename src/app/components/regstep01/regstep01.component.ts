@@ -5,6 +5,8 @@ import { AppError } from 'src/app/app-error';
 import { UserData } from 'src/app/models/user-data';
 import { Helpers } from '../helpers';
 import { User } from 'src/app/models/user';
+import { ApplicationInsightsService } from 'src/app/services/application-insights.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'pc-regstep01',
@@ -12,6 +14,7 @@ import { User } from 'src/app/models/user';
   styleUrls: ['./regstep01.component.css']
 })
 export class Regstep01Component implements OnInit {
+  appInsights: ApplicationInsightsService;
   currentUser: User;
   userData: UserData;
   loading = false;
@@ -21,10 +24,13 @@ export class Regstep01Component implements OnInit {
   @Output() step01Done = new EventEmitter();
 
   constructor(
+    private router: Router,
     private serverApi: ServerApiService,
     private alertService: AlertService,
     private helpers: Helpers
-  ) { }
+  ) { 
+    this.appInsights = new ApplicationInsightsService(router);
+  }
 
   ngOnInit(): void {
     this.alertService.clear();  
@@ -41,6 +47,7 @@ export class Regstep01Component implements OnInit {
   }
 
   onSubmit() {
+    this.appInsights.trackTrace('Regstep01Component::onSubmit()');
     this.submitted = true;
     this.loading = true;
 

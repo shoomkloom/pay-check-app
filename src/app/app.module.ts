@@ -23,6 +23,7 @@ import { RegisterFlowComponent } from './components/register-flow/register-flow.
 import { Regstep02Component } from './components/regstep02/regstep02.component';
 import { RegTlushDataComponent } from './components/regtlushdata/regtlushdata.component';
 import { TlushDatasComponent } from './components/tlush-datas/tlush-datas.component';
+import { ApplicationInsightsService } from './services/application-insights.service';
 registerLocaleData(localeHe, 'he');
 
 @NgModule({
@@ -51,6 +52,7 @@ registerLocaleData(localeHe, 'he');
     ServerApiService,
     AlertService,
     { provide: LOCALE_ID, useValue: "he" },
+    ApplicationInsightsService
   ],
   bootstrap: [AppComponent]
 })
