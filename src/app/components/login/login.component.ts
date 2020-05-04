@@ -41,7 +41,6 @@ export class LoginComponent implements OnInit {
     this.serverApi.authGetValidUser(this.user)
       .subscribe(
         (validUser: User) => {
-          this.appInsights.setUserId(validUser.email);
           this.appInsights.trackTrace('LoginComponent: authGetValidUser success!');
           this.submitted = false;
           this.loading = false;

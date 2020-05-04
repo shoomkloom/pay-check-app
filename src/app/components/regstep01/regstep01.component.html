@@ -1,84 +1,102 @@
-<div class="row hebrew justify-content-start">
-    <div class col-sm-12>
-        <h5 class="justify-content-end">שאלון נתונים בסיסיים:</h5>
-    </div>
-</div>
-<form class="goodwidth" (ngSubmit)="onSubmit()" #regstep01Form="ngForm">
-    <div class="form-group text-right">
-        <label class="no-space-break" for="ahuzeimisra">מהם אחוזי המשרה בהם את/ה מועסק/ת?</label>
-        <input type="number" 
-        class="form-control text-left" 
-        dir="ltr"
-        id="ahuzeimisra"
-        required
-        [(ngModel)]="userData.ahuzeimisra" name="ahuzeimisra"
-        #ahuzeimisra="ngModel">
-        <div [hidden]="ahuzeimisra.valid || ahuzeimisra.pristine"
-            class="alert alert-danger">
-            צריך למלא את כל השדות
+<div *ngIf="vetekDetails then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>
+    <div class="row hebrew justify-content-start">
+        <div class col-sm-12>
+            <h5 class="justify-content-end">חישוב ותק:</h5>
         </div>
     </div>
-    <div class="form-group text-right">
-        <label for="hachsharaSelect">הכשרה:</label>
-        <ng-select #MemberNgSelect
-            [items]="hachsharas"
+    <div class="row hebrew justify-content-start">
+        <button type="button" class="btn btn-info" (click)="vetekDetails=false;">חזרה</button>
+    </div>
+</ng-template>
+<ng-template #elseBlock>
+    <div class="row hebrew justify-content-start">
+        <div class col-sm-12>
+            <h5 class="justify-content-end">שאלון נתונים בסיסיים:</h5>
+        </div>
+    </div>
+    <form class="goodwidth" (ngSubmit)="onSubmit()" #regstep01Form="ngForm">
+        <div class="form-group text-right">
+            <label class="no-space-break" for="ahuzeimisra">מהם אחוזי המשרה בהם את/ה מועסק/ת?</label>
+            <input type="number" 
+            class="form-control text-left" 
+            dir="ltr"
+            id="ahuzeimisra"
             required
-            bindLabel="name"
-            placeholder="בחר/י הכשרה"
-            [multiple]="false"
-            [searchable]="true" 
-            [clearable]="true"
-            [hideSelected]="true"
-            [closeOnSelect]="true"
-            [clearSearchOnAdd]="true"
-            [(ngModel)]="userData.hachshara" name="hachsharaSelect">
-        </ng-select>
-    </div>
-    <div class="form-group text-right">
-        <label class="no-space-break" for="vetekyears">כמה שנות ותק לשכר יש לך?</label>
-        <input type="number" 
-        class="form-control text-left" 
-        dir="ltr"
-        id="vetekyears"
-        required
-        [(ngModel)]="userData.vetekyears" name="vetekyears"
-        #vetekyears="ngModel">
-        <div [hidden]="vetekyears.valid || vetekyears.pristine"
-            class="alert alert-danger">
-            צריך למלא את כל השדות
+            [(ngModel)]="userData.ahuzeimisra" name="ahuzeimisra"
+            #ahuzeimisra="ngModel">
+            <div [hidden]="ahuzeimisra.valid || ahuzeimisra.pristine"
+                class="alert alert-danger">
+                צריך למלא את כל השדות
+            </div>
         </div>
-    </div>
-    <div class="form-group text-right">
-        <div class="form-check">
-            <input class="form-check-input" 
-                type="checkbox" 
-                value="" 
-                id="teudathoraa"
-                [(ngModel)]="userData.teudathoraa" name="teudathoraa"
-                #teudathoraa="ngModel">
-            &nbsp;&nbsp;&nbsp;
-            <label class="form-check-label" for="teudathoraa">
-                האם יש לך תעודת הוראה?
-            </label>
+        <div class="form-group text-right">
+            <label for="hachsharaSelect">הכשרה:</label>
+            <ng-select #MemberNgSelect
+                [items]="hachsharas"
+                required
+                bindLabel="name"
+                placeholder="בחר/י הכשרה"
+                [multiple]="false"
+                [searchable]="true" 
+                [clearable]="true"
+                [hideSelected]="true"
+                [closeOnSelect]="true"
+                [clearSearchOnAdd]="true"
+                [(ngModel)]="userData.hachshara" name="hachsharaSelect">
+            </ng-select>
         </div>
-    </div>
-    <div class="form-group text-right">
-        <label class="no-space-break" for="gmuleihishtalmut">מה גמולי השתלמות שיש לך?</label>
-        <input type="text" 
-        class="form-control text-right" 
-        dir="rtl"
-        id="gmuleihishtalmut"
-        required
-        [(ngModel)]="userData.gmuleihishtalmut" name="gmuleihishtalmut"
-        #gmuleihishtalmut="ngModel">
-        <div [hidden]="gmuleihishtalmut.valid || gmuleihishtalmut.pristine"
-            class="alert alert-danger">
-            צריך למלא את כל השדות
+        <div class="form-group text-right">
+            <label class="no-space-break" for="vetekyears">כמה שנות ותק לשכר יש לך?</label>
+            <input type="number" 
+            class="form-control text-left" 
+            dir="ltr"
+            id="vetekyears"
+            required
+            [(ngModel)]="userData.vetekyears" name="vetekyears"
+            #vetekyears="ngModel">
+            <div [hidden]="vetekyears.valid || vetekyears.pristine"
+                class="alert alert-danger">
+                צריך למלא את כל השדות
+            </div>
         </div>
-    </div>
-    <button type="submit" class="btn btn-primary" style="margin-top: 50px;"
-        [disabled]="!regstep01Form.valid || loading || regstep01Form.errors">
-        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-        המשך
-    </button>
-</form>
+        <div class="form-group text-right">
+            <span>לחישוב מדוייק של הותק לחץ כאן:</span>
+            &nbsp;
+            <button type="button" class="btn btn-info" (click)="vetekDetails=true;">חשב</button>
+        </div>
+        <div class="form-group text-right">
+            <div class="form-check">
+                <input class="form-check-input" 
+                    type="checkbox" 
+                    value="" 
+                    id="teudathoraa"
+                    [(ngModel)]="userData.teudathoraa" name="teudathoraa"
+                    #teudathoraa="ngModel">
+                &nbsp;&nbsp;&nbsp;
+                <label class="form-check-label" for="teudathoraa">
+                    סמן/י כאן אם יש לך תעודת הוראה.
+                </label>
+            </div>
+        </div>
+        <div class="form-group text-right">
+            <div class="form-check">
+                <input class="form-check-input" 
+                    type="checkbox" 
+                    value="" 
+                    id="rishyonhoraa"
+                    [(ngModel)]="userData.rishyonhoraa" name="rishyonhoraa"
+                    #rishyonhoraa="ngModel">
+                &nbsp;&nbsp;&nbsp;
+                <label class="form-check-label" for="rishyonhoraa">
+                    סמן/י כאן אם יש לך רשיון הוראה.
+                </label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-top: 50px;"
+            [disabled]="!regstep01Form.valid || loading || regstep01Form.errors">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            המשך
+        </button>
+    </form>
+</ng-template>

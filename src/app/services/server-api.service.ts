@@ -80,14 +80,14 @@ export class ServerApiService {
 
     if(!this.promiseUser.token){
       this.appInsights.trackException('ServerApiService:updateUser: ERROR! token is null!');
-      console.log('updateUser: ERROR! token is null!');
-      throw new Error('updateUser: ERROR! token is null!');
+      console.log('ServerApiService::updateUser: ERROR! token is null!');
+      throw new Error('ServerApiService::updateUser: ERROR! token is null!');
     }
   }
 
   //Auth
   authGetValidUser(user: User){
-    this.appInsights.trackTrace('ServerApiService::authGetValidUser(.)');
+    //@@this.appInsights.trackTrace('ServerApiService::authGetValidUser(.)');
 
     const url = this.url + '/api/auth';
 
@@ -100,16 +100,19 @@ export class ServerApiService {
         map((res: HttpResponse<Object>) => {
           //Store user details and jwt token in local storage to keep user logged in between page refreshes
           let validUser = res.body as User;
-          validUser.token = res.headers.get('x-auth-token');
+
+          if(!validUser.token){
+            console.error(`ServerApiService::authGetValidUser validUser.token = null! headers=${JSON.stringify(res.headers)}`);
+          }
+
           this.updateUser(validUser);
+          console.log(`ServerApiService::authGetValidUser Login successfull for ${validUser.email}`);
+          this.appInsights.setUserId(validUser.email);
           return res.body as User;
         }),
         catchError( err => {
-            if (err.status == 401) {
-                return EMPTY;
-            } else {
-                return throwError(new AppError(err.status));
-            }
+          console.error(`ServerApiService::authGetValidUser EXCEPTION: ${err}`);
+          return throwError(new AppError(err.status));
         })
       );
   }
