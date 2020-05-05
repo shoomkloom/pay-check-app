@@ -1,28 +1,23 @@
 <!-- Starting... -->
-<div *ngIf="regstep01 === false && regstep02 === false">
-    <div class="row hebrew justify-content-start">
-        <h5>שלום {{currentUser.name}}</h5>
+<div *ngIf="regstep01 === false">
+  <div class="row hebrew justify-content-start">
+      <h5>שלום {{currentUser.name}}</h5>
+  </div>
+  <div class="row hebrew text-right">
+    <div class="col-sm-12">
+      כדי להשלים את ההרשמה יש לענות על השאלונים הבאים.
     </div>
-    <div class="row hebrew text-right">
-      <div class="col-sm-12">
-        כדי להשלים את ההרשמה יש לענות על השאלונים הבאים.
-      </div>
+  </div>
+  <div class="row hebrew text-right">
+    <div class="col-sm-12">
+      יש ללחוץ על כפתור 'התחל' על מנת להתקדם.
     </div>
-    <div class="row hebrew text-right">
-      <div class="col-sm-12">
-        יש ללחוץ על כפתור 'התחל' על מנת להתקדם.
-      </div>
-    </div>
-    <div class="row hebrew justify-content-end" style="margin-top: 50px;">
-      <button class="btn btn-primary" (click)="regstep01 = true">התחל</button>
-    </div>
-  <!--</ng-template>-->
+  </div>
+  <div class="row hebrew justify-content-end" style="margin-top: 50px;">
+    <button class="btn btn-primary" (click)="regstep01 = true">התחל</button>
+  </div>
 </div>
 <!-- Reg Step 01 -->
 <div *ngIf="regstep01 === true">
     <pc-regstep01 (step01Done)="step01Done();"></pc-regstep01>
-</div>
-<!-- Reg Step 02 -->
-<div *ngIf="regstep02 === true">
-  <pc-regstep02></pc-regstep02>
 </div>

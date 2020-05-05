@@ -57,9 +57,27 @@ export class Regstep01Component implements OnInit {
 
     this.helpers.setCurrentUserData(this.userData);
 
-    this.submitted = false;
-    this.loading = false;
-
-    this.step01Done.emit();
+    //Update the user data
+    this.serverApi.userDataCreate(this.userData)
+      .subscribe(
+        (validUserData: UserData) => {
+          this.appInsights.trackTrace('Regstep01Component: userDataCreate success!');
+          this.helpers.setCurrentUserData(validUserData);
+          this.currentUser.fullyregestered = true;
+          this.loading = false;
+          this.serverApi.updateUser(this.currentUser);
+        },
+        (error: AppError) => {
+          this.appInsights.trackException(`Regstep01Component: ${JSON.stringify(error)}`);
+          console.log('ERROR:', error);
+          if(error.status === 400 || error.status === 401){
+            this.alertService.error(`שגיאה בחיבור לשרת: ${error}`);
+          }
+          else{
+            this.alertService.error(`שגיאה לא מזוהה בחיבור לשרת: ${error}`);
+          }
+          this.loading = false;
+        }
+      )
   }
 }

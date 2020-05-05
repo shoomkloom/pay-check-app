@@ -85,9 +85,8 @@ export class ApplicationInsightsService {
   }
 
   private devFlush(){
-    //@@if(environment.production == false){
-    //@@ For now flush everything...
+    if(environment.production == false){
       this.appInsights.flush();
-    //@@}
+    }
   }
 }

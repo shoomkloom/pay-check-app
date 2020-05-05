@@ -87,7 +87,7 @@ export class ServerApiService {
 
   //Auth
   authGetValidUser(user: User){
-    //@@this.appInsights.trackTrace('ServerApiService::authGetValidUser(.)');
+    //Don't call appInsights.trackTrace here
 
     const url = this.url + '/api/auth';
 

@@ -2,10 +2,8 @@ export class UserData {
 
   constructor(){
     this.teudathoraa = false;
+    this.rishyonhoraa = false;
     this.ofekhadash = false;
-    this.zahalhoraa = false;
-    this.policehoraa = false;
-    this.madrichshelach = false;
   }
 
   _id: number;
@@ -17,19 +15,5 @@ export class UserData {
   vetekyears: number;
   teudathoraa: boolean;
   rishyonhoraa: boolean;
-
-  //regstep02:
   ofekhadash: boolean;
-  vetekformaly: number;
-  vetekformalystart: number;
-  veteknotformaly: number;
-  vetekzahalpolice: number;
-  sadirmonths: number;
-  zahalkevayears: number;
-  policesherutyears: number;
-  zahalhoraa: boolean;
-  policehoraa: boolean;
-  madrichshelach: boolean;
-  vetekprofessional: number;
-  vetekminhalit: number;
 }

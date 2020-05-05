@@ -20,7 +20,6 @@ import { registerLocaleData } from '@angular/common';
 import localeHe from '@angular/common/locales/he';
 import { Regstep01Component } from './components/regstep01/regstep01.component';
 import { RegisterFlowComponent } from './components/register-flow/register-flow.component';
-import { Regstep02Component } from './components/regstep02/regstep02.component';
 import { RegTlushDataComponent } from './components/regtlushdata/regtlushdata.component';
 import { TlushDatasComponent } from './components/tlush-datas/tlush-datas.component';
 import { ApplicationInsightsService } from './services/application-insights.service';
@@ -35,7 +34,6 @@ registerLocaleData(localeHe, 'he');
     AlertComponent,
     Regstep01Component,
     RegisterFlowComponent,
-    Regstep02Component,
     RegTlushDataComponent,
     TlushDatasComponent
   ],

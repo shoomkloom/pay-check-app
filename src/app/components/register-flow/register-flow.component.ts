@@ -13,8 +13,7 @@ export class RegisterFlowComponent implements OnInit {
   appInsights: ApplicationInsightsService;
   currentUser: User;
   regstep01: Boolean = false;
-  regstep02: Boolean = false;
-  
+    
   constructor(
     private router: Router,
     private serverApi: ServerApiService
@@ -32,13 +31,5 @@ export class RegisterFlowComponent implements OnInit {
     this.appInsights.trackTrace('RegisterFlowComponent::step01Done()');
 
     this.regstep01 = false;
-    this.regstep02 = true;
-  }
-
-  step02Done(){
-    this.appInsights.trackTrace('RegisterFlowComponent::step02Done()');
-
-    this.regstep01 = false;
-    this.regstep02 = false;
   }
 }
