@@ -40,9 +40,9 @@
             </div>
         </div>
         <div class="form-group text-right">
-            <label for="hachsharaSelect">הכשרה:</label>
+            <label for="dargaSelect">הכשרה:</label>
             <ng-select #MemberNgSelect
-                [items]="hachsharas"
+                [items]="dargas"
                 required
                 bindLabel="name"
                 placeholder="בחר/י הכשרה"
@@ -52,7 +52,7 @@
                 [hideSelected]="true"
                 [closeOnSelect]="true"
                 [clearSearchOnAdd]="true"
-                [(ngModel)]="userData.hachshara" name="hachsharaSelect">
+                [(ngModel)]="userData.darga" name="dargaSelect">
             </ng-select>
         </div>
         <div class="form-group text-right">

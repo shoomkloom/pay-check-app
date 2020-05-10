@@ -11,7 +11,7 @@ export class UserData {
   
   //regstep01:
   ahuzeimisra: number;
-  hachshara: string;
+  darga: string;
   vetekyears: number;
   teudathoraa: boolean;
   rishyonhoraa: boolean;

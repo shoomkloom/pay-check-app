@@ -19,7 +19,7 @@ export class Regstep01Component implements OnInit {
   userData: UserData;
   loading = false;
   submitted = false;
-  hachsharas = ['תואר ראשון', 'תואר שני', 'תואר שלישי', 'מורה בכיר'];
+  dargas = ['תואר ראשון', 'תואר שני', 'תואר שלישי', 'מורה בכיר'];
   vetekDetails = false;
 
   @Output() step01Done = new EventEmitter();
