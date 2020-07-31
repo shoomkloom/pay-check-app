@@ -52,7 +52,12 @@ export class RegisterComponent implements OnInit {
           this.appInsights.trackException(`RegisterComponent: ${JSON.stringify(error)}`);
           console.log('ERROR:', error);
           if(error.status === 400 || error.status === 401){
-            this.alertService.error(`(${error.status}) הרשמה לא הצליחה, בבקשה לנסות שוב.`);
+            if(error.originalError == "User already registered"){
+              this.alertService.error(`(${error.status}) משתמש זה כבר רשום במערכת.`);
+            }
+            else{
+              this.alertService.error(`(${error.status}) הרשמה לא הצליחה, בבקשה לנסות שוב.`);
+            }
           }
           else{
             this.alertService.error(`(${error.status}) תקלה לא מזוהה ברישום, בבקשה לנסות שוב.`);

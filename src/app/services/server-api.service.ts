@@ -129,12 +129,8 @@ export class ServerApiService {
     };
 
     return this.httpClient.post(url, _.omit(user, ['token']), httpOptions)
-      .pipe(catchError( err => {
-            if (err.status == 401) {
-                return EMPTY;
-            } else {
-                return throwError(new AppError(err.status));
-            }
+      .pipe(catchError( (err: HttpErrorResponse) => {
+          return throwError(new AppError(err.status, err.error));
         })
       );
   }
